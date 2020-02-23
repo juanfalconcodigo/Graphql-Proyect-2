@@ -1,0 +1,67 @@
+type Query{
+    "Lista de los estudiantes de la academia"
+    students:[Student!]!
+    "Info del estudiante de la academia"
+    student(id:ID!):Student!
+    "Lista de los cursos de la academia"
+    courses:[Course!]!
+    "Info del curso de la academia"
+    course(id:ID!):Course!
+}
+
+type Mutation{
+    "Añadimos un nuevo curso a la academia"
+    addCourse(course:CourseInput!):Course!
+    "Actualizamos un curso de la academia"
+    updateCourse(id:ID!,course:CourseInput!):Course!
+    "Eliminamos un nuevo curso de la academia"
+    deleteCourse(id:ID!):Course!
+}
+
+input CourseInput{
+    id:ID
+    title:String!
+    description:String!
+    clases:Int!
+    time:Float!
+    level:Nivel=ALL
+    logo:String!
+    path:String!
+    teacher:String!
+}
+
+type Student{
+    id:ID!
+    name:String!
+    email:String!
+    website:String
+    courses:[Course!]!
+}
+
+enum Nivel{
+    ALL
+    NOVATO
+    MEDIUM
+    EXPERT
+}
+
+type Course{
+    id:ID!
+    title:String!
+    description:String!
+    clases:Int!
+    time:Float!
+    level:Nivel!
+    logo:String!
+    path:String!
+    teacher:String!
+    students:[Student]
+    reviews:[Review!]!
+}
+
+type Review{
+    id:ID!
+    name:String!
+    points:Float!
+    comment:String
+}
